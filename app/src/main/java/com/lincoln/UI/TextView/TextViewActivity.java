@@ -1,5 +1,6 @@
 package com.lincoln.UI.TextView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,9 +10,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lincoln.UI.R;
+import com.lincoln.UI.TextView.util.TextViewValidatorUtil;
 import com.lincoln.UI.util.LogUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -19,6 +23,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 public class TextViewActivity extends AppCompatActivity {
+    private Activity activity;
     //    private String descString = "<font size='10' color='#778797'><strong>体验计划说明:</strong></font> <br><font color='#8795a4'>1. 请下载步骤下载安装XXX；<br> 2. 首次参加后，立即获得</font><font color='red' ><big>10</big></font> <font  color='#8795a4'>元现金奖励； ";
     private String desc1 = "<head><title>体验计划Header</title></head> <br>"
             .concat("<strong>体验计划粗体</strong> <br>")
@@ -37,7 +42,9 @@ public class TextViewActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        activity = this;
 
+        //TODO Html内容展示
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this));
         TextView tv = (TextView) findViewById(R.id.tv1);
 //        tv.setText(Html.fromHtml(desc1, new ImageDownloadGetter(this, tv), null));
@@ -65,6 +72,44 @@ public class TextViewActivity extends AppCompatActivity {
                 return drawable;
             }
         }, null));
+
+
+
+        //TODO 输入内容校验
+        final EditText tv2 = (EditText)findViewById(R.id.tv2);
+        Button btnValidator = (Button)findViewById(R.id.button_validator);
+        btnValidator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String result = "is normal content ";
+                String content = tv2.getText().toString();
+                if (TextViewValidatorUtil.emailValidator(content)){
+                    result = "content is Email";
+                    LogUtil.d(content+" "+result);
+                }
+                if(TextViewValidatorUtil.phoneValidator(content)){
+                    result = "content is phone";
+                    LogUtil.d(content+" "+result);
+                }
+                if(TextViewValidatorUtil.WebUrlValidator(content)){
+                    result = "content is webUrl";
+                    LogUtil.d(content+" "+result);
+                }
+                if (TextViewValidatorUtil.IPValidator(content)){
+                    result = "content is Ip";
+                    LogUtil.d(content+" "+result);
+                }
+                if (TextViewValidatorUtil.domainValidator(content)){
+                    result = "content is domain";
+                    LogUtil.d(content+" "+result);
+                }
+
+            }
+        });
+
+        //TODO 表情相关代码
+        
+
     }
 
     //异步线程加载图片

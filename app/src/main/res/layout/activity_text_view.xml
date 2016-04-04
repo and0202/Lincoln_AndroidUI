@@ -12,6 +12,44 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv1"/>
+        android:id="@+id/tv1"
+        android:text="html展示"/>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv1"
+        android:id="@+id/invalidator_layout"
+        android:layout_centerHorizontal="true">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv2"
+            android:hint="输入内容"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="校验"
+            android:id="@+id/button_validator"
+            android:layout_weight="1" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/invalidator_layout"
+        android:id="@+id/emo_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="emo"
+            android:id="@+id/emo_base_tv"/>
+    </LinearLayout>
 
 </RelativeLayout>
